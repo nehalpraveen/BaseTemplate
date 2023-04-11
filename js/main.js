@@ -79,81 +79,89 @@
     
 })(jQuery);
 
-const contextMenu = document.getElementById("context-menu");
-const scope = document.querySelector("body");
-
-const normalizePozition = (mouseX, mouseY) => {
-  // ? compute what is the mouse position relative to the container element (scope)
-  let {
-    left: scopeOffsetX,
-    top: scopeOffsetY,
-  } = scope.getBoundingClientRect();
-
-  scopeOffsetX = scopeOffsetX < 0 ? 0 : scopeOffsetX;
-  scopeOffsetY = scopeOffsetY < 0 ? 0 : scopeOffsetY;
-
-  const scopeX = mouseX - scopeOffsetX;
-  const scopeY = mouseY - scopeOffsetY;
-
-  // ? check if the element will go out of bounds
-  const outOfBoundsOnX =
-    scopeX + contextMenu.clientWidth > scope.clientWidth;
-
-  const outOfBoundsOnY =
-    scopeY + contextMenu.clientHeight > scope.clientHeight;
-
-  let normalizedX = mouseX;
-  let normalizedY = mouseY;
-
-  // ? normalize on X
-  if (outOfBoundsOnX) {
-    normalizedX =
-      scopeOffsetX + scope.clientWidth - contextMenu.clientWidth;
-  }
-
-  // ? normalize on Y
-  if (outOfBoundsOnY) {
-    normalizedY =
-      scopeOffsetY + scope.clientHeight - contextMenu.clientHeight;
-  }
-
-  return { normalizedX, normalizedY };
-};
-
-scope.addEventListener("contextmenu", (event) => {
-  event.preventDefault();
-
-  const { clientX: mouseX, clientY: mouseY } = event;
-
-  const { normalizedX, normalizedY } = normalizePozition(mouseX, mouseY);
-
-  contextMenu.classList.remove("visible");
-
-  contextMenu.style.top = `${normalizedY}px`;
-  contextMenu.style.left = `${normalizedX}px`;
-
-  setTimeout(() => {
-    contextMenu.classList.add("visible");
-  });
-});
-
-scope.addEventListener("click", (e) => {
-  // ? close the menu if the user clicks outside of it
-  if (e.target.offsetParent != contextMenu) {
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const pro = urlParams.get('mode');
+if(pro == "branding"){
+  const contextMenu = document.getElementById("context-menu");
+  const scope = document.querySelector("body");
+  
+  const normalizePozition = (mouseX, mouseY) => {
+    // ? compute what is the mouse position relative to the container element (scope)
+    let {
+      left: scopeOffsetX,
+      top: scopeOffsetY,
+    } = scope.getBoundingClientRect();
+  
+    scopeOffsetX = scopeOffsetX < 0 ? 0 : scopeOffsetX;
+    scopeOffsetY = scopeOffsetY < 0 ? 0 : scopeOffsetY;
+  
+    const scopeX = mouseX - scopeOffsetX;
+    const scopeY = mouseY - scopeOffsetY;
+  
+    // ? check if the element will go out of bounds
+    const outOfBoundsOnX =
+      scopeX + contextMenu.clientWidth > scope.clientWidth;
+  
+    const outOfBoundsOnY =
+      scopeY + contextMenu.clientHeight > scope.clientHeight;
+  
+    let normalizedX = mouseX;
+    let normalizedY = mouseY;
+  
+    // ? normalize on X
+    if (outOfBoundsOnX) {
+      normalizedX =
+        scopeOffsetX + scope.clientWidth - contextMenu.clientWidth;
+    }
+  
+    // ? normalize on Y
+    if (outOfBoundsOnY) {
+      normalizedY =
+        scopeOffsetY + scope.clientHeight - contextMenu.clientHeight;
+    }
+  
+    return { normalizedX, normalizedY };
+  };
+  
+  scope.addEventListener("contextmenu", (event) => {
+    event.preventDefault();
+  
+    const { clientX: mouseX, clientY: mouseY } = event;
+  
+    const { normalizedX, normalizedY } = normalizePozition(mouseX, mouseY);
+  
     contextMenu.classList.remove("visible");
-  }
-});
+  
+    contextMenu.style.top = `${normalizedY}px`;
+    contextMenu.style.left = `${normalizedX}px`;
+  
+    setTimeout(() => {
+      contextMenu.classList.add("visible");
+    });
+  });
+  
+  scope.addEventListener("click", (e) => {
+    // ? close the menu if the user clicks outside of it
+    if (e.target.offsetParent != contextMenu) {
+      contextMenu.classList.remove("visible");
+    }
+  });
+  
+  history.scrollRestoration = "manual";
+  
+  $(window).on('beforeunload', function(){
+        $(window).scrollTop(0);
+  });
+  
+}
 
-history.scrollRestoration = "manual";
 
-$(window).on('beforeunload', function(){
-      $(window).scrollTop(0);
-});
-
+var myTextBoxId = document.getElementById("myTextBoxId")
+myTextBoxId.focus();
 const bin = ['642139aaebd26539d09da7ec','64213a25ace6f33a22fdd2e2'];
 let req = new XMLHttpRequest();
 req.onreadystatechange = () => {
-
     var exam = JSON.parse(req.responseText);
     for (let i=0;i<5;i++){
     document.getElementById("Title"+i).innerHTML =exam.record.Jobs[i].Title;
@@ -163,21 +171,19 @@ req.onreadystatechange = () => {
     }
       var txt = "" ;
       var txt1 = "";
-      
       for(let i=0;i<5;i++){
         if(exam.record.Jobs[i].Mode == "Full Time"){
-            txt += '<div class="job-item p-4 mb-4"><div class="row g-4"><div class="col-sm-12 col-md-8 d-flex align-items-center"><img class="flex-shrink-0 img-fluid border rounded" src="img/com-logo-1.jpg" alt="" style="width: 80px; height: 80px;"><div class="text-start ps-4"><h5 class="mb-3" id = "Title'+i+'">'+exam.record.Jobs[i].Title+'</h5><span class="text-truncate me-3" id = "city'+i+'"><i class="fa fa-map-marker-alt text-primary me-2"></i>'+exam.record.Jobs[i].Location+'</span><span class="text-truncate me-3" id = "mode'+i+'"><i class="far fa-clock text-primary me-2"></i>'+exam.record.Jobs[i].Mode+'</span><span class="text-truncate me-0" id = "sal'+i+'"><i class="far fa-money-bill-alt text-primary me-2"></i>'+exam.record.Jobs[i].SalaryRange+'</span></div></div><div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center"><div class="d-flex mb-3"><a class="btn btn-light btn-square me-3" href=""><i class="far fa-heart text-primary"></i></a><a class="btn btn-primary" href="">Apply Now</a></div><small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>Date Line: 01 Jan, 2045</small></div></div></div>';
+            txt += '<div class="job-item p-4 mb-4"><div class="row g-4"><div class="col-sm-12 col-md-8 d-flex align-items-center"><img class="flex-shrink-0 img-fluid border rounded" src="img/com-logo-1.jpg" alt="" style="width: 80px; height: 80px;"><div class="text-start ps-4"><h5 class="mb-3" id = "Title'+i+'">'+exam.record.Jobs[i].Title+'</h5><span class="text-truncate me-3" id = "city'+i+'"><i class="fa fa-map-marker-alt text-primary me-2"></i>'+exam.record.Jobs[i].Location+'</span><span class="text-truncate me-3" id = "mode'+i+'"><i class="far fa-clock text-primary me-2"></i>'+exam.record.Jobs[i].Mode+'</span><span class="text-truncate me-0" id = "sal'+i+'"><i class="far fa-money-bill-alt text-primary me-2"></i>'+exam.record.Jobs[i].SalaryRange+'</span></div></div><div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center"><div class="d-flex mb-3"><a class="btn btn-light btn-square me-3" href=""></a><a class="btn btn-primary" href="">Apply Now</a></div><small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>Date Line: 01 Jan, 2045</small></div></div></div>';
         }
         else{
-          txt1 += '<div class="job-item p-4 mb-4"><div class="row g-4"><div class="col-sm-12 col-md-8 d-flex align-items-center"><img class="flex-shrink-0 img-fluid border rounded" src="img/com-logo-1.jpg" alt="" style="width: 80px; height: 80px;"><div class="text-start ps-4"><h5 class="mb-3" id = "Title'+i+'">'+exam.record.Jobs[i].Title+'</h5><span class="text-truncate me-3" id = "city'+i+'"><i class="fa fa-map-marker-alt text-primary me-2"></i>'+exam.record.Jobs[i].Location+'</span><span class="text-truncate me-3" id = "mode'+i+'"><i class="far fa-clock text-primary me-2"></i>'+exam.record.Jobs[i].Mode+'</span><span class="text-truncate me-0" id = "sal'+i+'"><i class="far fa-money-bill-alt text-primary me-2"></i>'+exam.record.Jobs[i].SalaryRange+'</span></div></div><div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center"><div class="d-flex mb-3"><a class="btn btn-light btn-square me-3" href=""><i class="far fa-heart text-primary"></i></a><a class="btn btn-primary" href="">Apply Now</a></div><small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>Date Line: 01 Jan, 2045</small></div></div></div>';
+          txt1 += '<div class="job-item p-4 mb-4"><div class="row g-4"><div class="col-sm-12 col-md-8 d-flex align-items-center"><img class="flex-shrink-0 img-fluid border rounded" src="img/com-logo-1.jpg" alt="" style="width: 80px; height: 80px;"><div class="text-start ps-4"><h5 class="mb-3" id = "Title'+i+'">'+exam.record.Jobs[i].Title+'</h5><span class="text-truncate me-3" id = "city'+i+'"><i class="fa fa-map-marker-alt text-primary me-2"></i>'+exam.record.Jobs[i].Location+'</span><span class="text-truncate me-3" id = "mode'+i+'"><i class="far fa-clock text-primary me-2"></i>'+exam.record.Jobs[i].Mode+'</span><span class="text-truncate me-0" id = "sal'+i+'"><i class="far fa-money-bill-alt text-primary me-2"></i>'+exam.record.Jobs[i].SalaryRange+'</span></div></div><div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center"><div class="d-flex mb-3"><a class="btn btn-light btn-square me-3" href=""></a><a class="btn btn-primary" href="">Apply Now</a></div><small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>Date Line: 01 Jan, 2045</small></div></div></div>';
         }
       }
       document.getElementById("tab-2").innerHTML = txt+'<a class="btn btn-primary py-3 px-5" href="">Browse More Jobs</a>';
       document.getElementById("tab-3").innerHTML = txt1+'<a class="btn btn-primary py-3 px-5" href="">Browse More Jobs</a>'; 
-
 };
 req.open("GET", "https://api.jsonbin.io/v3/b/64197bc9ace6f33a22f2a2de/latest", true);
-req.setRequestHeader("X-Master-Key", "$2b$10$gRV7dks3NW/Q1POOjeMxD.8eGouSjj2m8TNm2XtefCTUSlYCwJ5FS");
+req.setRequestHeader("X-Master-Key", "$2b$10$k9oI5hAKGm0NudZ.Qyv8QeVAM/KlVWa0VM0jwBUjvFvfhdJ.IVYPa");
 req.send();
 
 
@@ -195,7 +201,7 @@ if (requ.readyState == XMLHttpRequest.DONE) {
   }
 };
 requ.open("GET", "https://api.jsonbin.io/v3/b/642139aaebd26539d09da7ec/latest", true);
-requ.setRequestHeader("X-Master-Key", "$2b$10$gRV7dks3NW/Q1POOjeMxD.8eGouSjj2m8TNm2XtefCTUSlYCwJ5FS");
+requ.setRequestHeader("X-Master-Key", "$2b$10$k9oI5hAKGm0NudZ.Qyv8QeVAM/KlVWa0VM0jwBUjvFvfhdJ.IVYPa");
 requ.send();
 
 
@@ -215,8 +221,6 @@ req3.open("GET", "https://api.jsonbin.io/v3/b/64215a3debd26539d09dc24d/latest", 
 req3.setRequestHeader("X-Master-Key", "$2b$10$PMixIXysvI5UcNoev2Gkc.jn8jMnoPE37ZY9Ys2uuLOT./BPh4PYe");
 req3.send();
 
-const url = new URL(window.location.href);
-var example = url.hash;
 
 let req4 = new XMLHttpRequest();
 req4.onreadystatechange = () => {
@@ -230,7 +234,7 @@ if (req4.readyState == XMLHttpRequest.DONE){
   }
   document.getElementById("com").innerHTML += txt5;
   document.getElementById("quick").innerHTML += txt6;
-  document.getElementById("add").innerHTML = '<i class="fa fa-map-marker-alt me-3"></i>' + example.slice(1);
+  document.getElementById("add").innerHTML = '<i class="fa fa-map-marker-alt me-3"></i>' + pro;
   document.getElementById("phone").innerHTML = '<i class="fa fa-phone-alt me-3"></i>' + foot.record.Contact[1].Phoneno;
   document.getElementById("mail").innerHTML = '<i class="fa fa-envelope me-3"></i>' + foot.record.Contact[2].Mail;
 }
@@ -248,11 +252,22 @@ if (req5.readyState == XMLHttpRequest.DONE){
   for(let i =0;i<4;i++){
     txt7 += '<div class="testimonial-item bg-light rounded p-4"><i class="fa fa-quote-left fa-2x text-primary mb-3"></i><p>Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p><div class="d-flex align-items-center"><img class="img-fluid flex-shrink-0 rounded" src="img/testimonial-1.jpg" style="width: 50px; height: 50px;"><div class="ps-3"><h5 class="mb-1">'+foot.record.Client[i].client+'</h5><small>'+foot.record.Client[i].type+'</small></div></div></div>';
   }
-  document.getElementById("client").innerHTML += txt7;
-  
+  document.getElementById("").innerHTML += txt7;
 }
 };
 req5.open("GET", "https://api.jsonbin.io/v3/b/64215bf3c0e7653a059704f1/latest", true);
 req5.setRequestHeader("X-Master-Key", "$2b$10$PMixIXysvI5UcNoev2Gkc.jn8jMnoPE37ZY9Ys2uuLOT./BPh4PYe");
 req5.send();
 
+
+let dyn = new XMLHttpRequest();
+dyn.onreadystatechange = () => {
+  if (dyn.readyState == XMLHttpRequest.DONE){
+    var r = document.querySelector(':root');
+    var var1 = JSON.parse(dyn.responseText);
+    r.style.setProperty('--primary', var1.record.change[0].Color);
+  }
+};
+dyn.open("GET", "https://api.jsonbin.io/v3/b/642d0949ebd26539d0a4c126/latest", true);
+dyn.setRequestHeader("X-Master-Key", "$2b$10$k9oI5hAKGm0NudZ.Qyv8QeVAM/KlVWa0VM0jwBUjvFvfhdJ.IVYPa");
+dyn.send();
