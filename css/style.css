@@ -86,6 +86,13 @@ html {
     transform: rotate(-180deg);
 }
 
+.text-primary{
+    color: var(--primary) !important;
+}
+
+.btn-primary{
+    background-color: var(--primary) !important;
+}
 .navbar-dark .navbar-nav .nav-link,
 .navbar-light .navbar-nav .nav-link {
     margin-right: 30px;
@@ -421,10 +428,24 @@ html {
     cursor: pointer;
     border-radius: inherit;
   }
-  
+  .Color{
+    position:fixed;
+    
+    right: -185px;
+    top: 5px;
+    opacity: 0;
+
+  }
+
+
   #context-menu .item:hover {
     background: #343434;
     color: white;
+    opacity: 1;
+  }
+  #context-menu .change:hover .Color{
+    opacity: 1;
+    
   }
   .container{
     width: 1140px;
@@ -432,7 +453,7 @@ html {
     margin: 0 auto;
 }
 :root{
-	--main: #7b4ee4 ;
+
 	--darkblue: #362078;
 	--black: #060606;
 	--white: #e7dff4;
@@ -480,7 +501,7 @@ html {
 }
 .heading1{
     margin-top: 20px;
-    color: var(--main);
+    color: var(--primary);
     font-size: 14px;
     text-transform: uppercase;
 }
@@ -492,7 +513,7 @@ html {
     border-radius: 15px;
 }   
 div .fa-solid{
-    color: #00B074;
+    color: var(--primary);
 }
 i .topbt{
     
@@ -507,3 +528,12 @@ i .topbt:hover(){
 .img-fluid{
     border-radius: 15px;
 }
+
+.txt-primary{
+    color: var(--primary);
+}
+
+.fa .fa-3x{
+    color: violet;
+}
+
