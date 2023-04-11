@@ -33,16 +33,18 @@
 
 <body>
     <div id="context-menu">
-        <div class="item">Color</div>
+        <div class="item change" >Color<i style="padding-left: 60%;"class="fa-solid fa-caret-right"></i>
+            <div class="Color">
+                <div><input id="myTextBoxId" style ="border-radius: 8px;;"type="text" placeholder="#000000" autofocus></div>
+            </div>
+            
+        </div>
         <div class="item">Font</div>
         <div class="item">Size</div>
     </div>
-    <div class="ho" id="context-menu">
-    <input type="text" placeholder="#000000">
-    </div>
+   
 
-
-    <div class="container-xxl bg-white p-0">
+    <div  class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -120,7 +122,7 @@
 
 
         <!-- Search Start -->
-        <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;border-radius:10px">
+        <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;border-radius:10px; background-color: red;">
             <div class="container">
                 <div class="row g-2">
                     <div class="col-md-10">
@@ -412,8 +414,8 @@
                 <div id="1">
                 <div class="box-2">
                     <a class="cat-item roounded p-4">
-                    <img src="img\1.jpg" class="b-img-1">
-                    <h3 class="heading1">Blog - 1</h3>
+                        <img src="img\1.jpg" class="b-img-1">
+                        <h3 class="heading1">Blog - 1</h3>
                         <p class="blog-heading-1">Good Food Good Health</p>
                         <p class="text">Description </p>
                         <span class="name">Manoj Singh . SEP 21, 2021</span>
@@ -422,18 +424,18 @@
         
                 <div class="box-2">
                     <a class="cat-item roounded p-4">
-                    <img src="img/2.jpg" class="b-img-1">
-                    <h3 class="heading1">Blog - 2</h3>
+                        <img src="img/2.jpg" class="b-img-1">
+                        <h3 class="heading1">Blog - 2</h3>
                         <p class="blog-heading-1">Good Food Good Health</p>
                         <p class="text">Description</p>
-                        <span class="name">Manoj Singh . SEP 21, 2021</span>
+                        <span lascs="name">Manoj Singh . SEP 21, 2021</span>
                     </a>
                 </div>
         
                 <div class="box-2">
                     <a class="cat-item roounded p-4">
-                    <img src="img/3.jpg" class="b-img-1">
-                    <h3 class="heading1">Blog - 3</h3>
+                        <img src="img/3.jpg" class="b-img-1">
+                        <h3 class="heading1">Blog - 3</h3>
                         <p class="blog-heading-1">Good Food Good Health</p>
                         <p class="text">Description</p>
                         <span class="name">Manoj Singh . SEP 21, 2021</span>
@@ -444,8 +446,8 @@
         
                 <div class="box-2">
                     <a class="cat-item roounded p-4">
-                    <img src="img/8.jpg" class="b-img-1">
-                    <h3 class="heading1">Blog - 4</h3>
+                        <img src="img/8.jpg" class="b-img-1">
+                        <h3 class="heading1">Blog - 4</h3>
                         <p class="blog-heading-1">Good Food Good Health</p>
                         <p class="text">Description </p>
                         <span class="name">Manoj Singh . SEP 21, 2021</span>
@@ -454,8 +456,8 @@
         
                 <div class="box-2">
                     <a class="cat-item roounded p-4">
-                    <img src="img/9.jpg" class="b-img-1">
-                    <h3 class="heading1">Blog - 5</h3>
+                        <img src="img/9.jpg" class="b-img-1">
+                        <h3 class="heading1">Blog - 5</h3>
                         <p class="blog-heading-1">Good Food Good Health</p>
                         <p class="text">Description </p>
                         <span class="name">Manoj Singh . SEP 21, 2021</span>
@@ -464,14 +466,13 @@
         
                 <div class="box-2">
                     <a class="cat-item roounded p-4">
-                    <img src="img/10.jpg" class="b-img-1">
-                    <h3 class="heading1">Blog - 6</h3>
+                        <img src="img/10.jpg" class="b-img-1">
+                        <h3 class="heading1">Blog - 6</h3>
                         <p class="blog-heading-1">Add More</p>
                         <p class="text">Description </p>
                         <span class="name">Manoj Singh . SEP 21, 2021</span>
                     </a>
                 </div>
-        
                 <div class="clearfix"></div>
                 </div>
             </div>
@@ -482,7 +483,7 @@
         <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
             <div class="container">
                 <h1 class="text-center mb-5">Our Clients Say!!!</h1>
-                <div id = "" class="owl-carousel testimonial-carousel">
+                <div class="owl-carousel testimonial-carousel">
                     <div class="testimonial-item bg-light rounded p-4">
                         <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
                         <p>Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p>
@@ -634,7 +635,7 @@
                             &copy; <a class="border-bottom" href="#">Your Site Name</a>, All Right Reserved. 
 							
 							<!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-							Designed By Infinite Computer Solutions I
+							Designed By Infinite Computer Solutions Interns
                         </div>
                         <div class="col-md-6 text-center text-md-end">
                             <div class="footer-menu">
@@ -652,7 +653,7 @@
         
 
         <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top topbt" style="background-color: azure;"><i class="fa-solid fa-angle-up fa-xl topbt"></i></a>
+        <a href="#" class="btn btn-lg btn-lg-square back-to-top topbt" style="background-color: azure;"><i class="fa-solid fa-angle-up fa-xl topbt"></i></a>
     </div>
 
     <!-- JavaScript Libraries -->
